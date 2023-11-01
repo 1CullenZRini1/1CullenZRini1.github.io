@@ -5,10 +5,10 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
-		.box {
+		.box, .box2 {
 			width: 70px;
 			height: 70px;
-			background-color: rgb(245, 205, 136);
+			
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
@@ -17,87 +17,95 @@
 			top: 140px;
 			left: 800px;  /* <--- Change me! */
 		}
+		.box {
+			background-image: url ('img/Sonic.gif'); 
+			background-size: cover;
+			background-position: center;
+		    background-repeat: no-repeat;
+		}
+		.box2 {
+			background-image: url ('img/Sonic.gif'); 
+			background-size: cover;
+			background-position: center;
+		    background-repeat: no-repeat;
+		}
+		}
 		.board{
 			height: 100vh;
-		} body {
- 
-  background-color: #25bc3e;
-}
-	</style>
+		} 
+		body {
+     background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/29caae92-8d8a-4905-bffe-b5575a02b39e/df1j81j-51899e3f-8d91-4141-8147-a8d7308cee08.png/v1/fill/w_1280,h_720,q_80,strp/sonic_1__green_hill__present__background_by_mtbvcdremixes_df1j81j-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMjljYWFlOTItOGQ4YS00OTA1LWJmZmUtYjU1NzVhMDJiMzllXC9kZjFqODFqLTUxODk5ZTNmLThkOTEtNDE0MS04MTQ3LWE4ZDczMDhjZWUwOC5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.R5AV4FeUGVHiHG5_dbi3DCLH9gk6b0-MQsoBRjU91wo');
+        }
+	</style> 
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
-
 </head>
 <body class="board">
-	<!-- HTML for the box -->
 	<div class="box">?</div>
- 
-	
+	<div class="box2">?</div> <!-- Second box -->
 	<script>
 		(function(){
 			'use strict'
-			/* global jQuery */
 
-			//////////////////////////////////////////////////////////////////
-			/////////////////// SETUP DO NOT DELETE //////////////////////////
-			//////////////////////////////////////////////////////////////////
-			
-			var box = jQuery('.box');	// reference to the HTML .box element
-			var board = jQuery('.board');	// reference to the HTML .board element
-			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
+			var box = jQuery('.box');
+			var box2 = jQuery('.box2'); // Reference to the second box
+			var board = jQuery('.board');
+			var boardWidth = board.width();
 
-			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 50);
-			
-			// Every time the box is clicked, call the handleBoxClick Function (see below)
-			box.on('click', handleBoxClick);
 
-			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			box.on('click', handleBoxClick);
+			box2.on('click', handleBoxClick2); // Event for second box
+
+			function moveBoxTo(box, newPositionX) {
 				box.css("left", newPositionX);
 			}
 
-			// changes the text displayed on the Box
-			function changeBoxText(newText) {
+			function changeBoxText(box, newText) {
 				box.text(newText);
 			}
 
-			//////////////////////////////////////////////////////////////////
-			/////////////////// YOUR CODE BELOW HERE /////////////////////////
-			//////////////////////////////////////////////////////////////////
-			
-			// TODO 2 - Variable declarations 
-			var positionX = 0
-            var points = 0
-			var speed = 10
-			/* 
-			This Function will be called 20 times/second. Each time it is called,
-			it should move the Box to a new location. If the box drifts off the screen
-			turn it around! 
-			*/
+			// Variables for the first box
+			var positionX = 100;
+			var points = 0;
+			var speed = 20;
+
+			// Variables for the second box, with different names
+			var positionX2 = 0;
+			var points2 = 0;
+			var speed2 = 20;
+
 			function update() {
-				positionX = positionX + speed
-				moveBoxTo(positionX)
-                if (positionX > boardWidth) {
-					speed = speed * -1
+				// First box
+				positionX += speed;
+				moveBoxTo(box, positionX);
+				if(positionX > boardWidth || positionX < 0) {
+					speed *= -1;
 				}
-				if (positionX < 0 ) {
-					speed = speed * -1
+
+				// Second box
+				positionX2 += speed2;
+				moveBoxTo(box2, positionX2);
+				if(positionX2 > boardWidth || positionX2 < 0) {
+					speed2 *= -1;
 				}
 			};
 
-			/* 
-			This Function will be called each time the box is clicked. Each time it is called,
-			it should increase the points total, increase the speed, and move the box to
-			the left side of the screen.
-			*/
 			function handleBoxClick() {
-				speed = speed + 3
 				positionX = 0;
-            points = points + 1;
-				changeBoxText(points);
+				points += 1;
+				changeBoxText(box, points);
+				speed += 1;
+			};
 
+			function handleBoxClick2() {
+				positionX2 = 0;
+				points2 += 1;
+				changeBoxText(box2, points2);
+				speed2 += 1;
 			};
 		})();
 	</script>
 </body>
 </html>
+
+	
