@@ -1,21 +1,31 @@
 
 body {
-  background-color: darkgreen;
+  background-color: rgb(1, 9, 52);
 }
 
 #board {
-  width: 440px;
+  width: 660px;
   height: 440px;
-  border: 1px solid white;
-  background-color: black;
+  border: 1px solid rgb(23, 5, 110);
+  background-color: rgba(183, 237, 255, 0.9);
   position: relative;
 }
 
-#gameItem {
-  background-color: teal;
+#walker {
+  background-color: rgb(6, 193, 65);
   width: 50px;
   height: 50px;
+  border-radius: 50px;
   position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+  left: 100px; 
+  top: 100px; 
+}
+#runner {
+  background-color: rgb(210, 63, 14);
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  position: absolute;
+  left: 660px; 
+  top: 440px; 
 }
